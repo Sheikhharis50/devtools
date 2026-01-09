@@ -3,10 +3,15 @@ import { Clock, Plus } from 'lucide-react';
 import { CountryCard } from './CountryCard';
 import { AddCountryModal } from './AddCountryModal';
 import type { CountryType } from './index.type';
-import { DEFAULT_COUNTRIES } from '@/config/constants';
+import { DEFAULT_COUNTRIES } from '@/config/countries';
+import { STORAGE } from '@/config/storage';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const WorldTime = () => {
-  const [selectedCountries, setSelectedCountries] = useState<CountryType[]>(DEFAULT_COUNTRIES);
+  const [selectedCountries, setSelectedCountries] = useLocalStorage<CountryType[]>(
+    STORAGE.WORLD_TIME.SELECTED_COUNTRIES,
+    DEFAULT_COUNTRIES
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addCountry = (country: CountryType) => {

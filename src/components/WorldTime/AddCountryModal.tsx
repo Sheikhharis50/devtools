@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X, Search, Globe, Plus } from "lucide-react";
-import { COUNTRIES } from "@/config/constants";
+import { COUNTRIES } from "@/config/countries";
 import type { CountryType } from "./index.type";
 
 type AddCountryModalProps = {
