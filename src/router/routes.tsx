@@ -1,6 +1,7 @@
 import { createRoute, createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import DashboardPage from '@/pages/dashboard'
+import TimeComparisonPage from '@/pages/time-comparison'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -16,6 +17,11 @@ const routes = rootRoute.addChildren([
     getParentRoute: () => rootRoute,
     path: '/',
     component: DashboardPage,
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/time-comparison',
+    component: TimeComparisonPage,
   })
 ])
 

@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { X, LayoutDashboard } from 'lucide-react'
+import { X, LayoutDashboard, Clock } from 'lucide-react'
 import { useState } from 'react'
 
 const Sidebar = () => {
@@ -18,7 +18,7 @@ const Sidebar = () => {
       {/* Toggle Button - Always visible */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors shadow-lg"
+        className="fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors shadow-lg mt-5"
         aria-label="Toggle sidebar"
       >
         <svg
@@ -70,6 +70,19 @@ const Sidebar = () => {
                 >
                   <LayoutDashboard className="w-5 h-5" />
                   <span>Dashboard</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/time-comparison"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition-colors"
+                  activeProps={{
+                    className: 'bg-gray-800',
+                  }}
+                >
+                  <Clock className="w-5 h-5" />
+                  <span>Time Comparison</span>
                 </Link>
               </li>
             </ul>
