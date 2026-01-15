@@ -5,6 +5,9 @@
 
 export const STORAGE = {
   WORLD_TIME: {
-    SELECTED_COUNTRIES: 'worldTime.selectedCountries',
+    SELECTED_COUNTRIES: "SELECTED_COUNTRIES",
+  },
+  WORLD_RATES: {
+    SELECTED_CURRENCIES: "SELECTED_CURRENCIES",
   },
 } as const;
