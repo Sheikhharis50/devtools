@@ -3,7 +3,6 @@
 export type CurrencyType = {
   code: string;
   name: string;
-  symbol: string;
 };
 
 export type CountryType = {
@@ -11,5 +10,6 @@ export type CountryType = {
   timezone: string;
   offset: number;
   icon: string;
+  code: string;
   currency: CurrencyType;
 };

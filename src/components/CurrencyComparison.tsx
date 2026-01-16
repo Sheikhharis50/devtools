@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { CountryType, CurrencyType } from "./WorldTime/index.type";
 import { AddCountryModal } from "./WorldTime/AddCountryModal";
@@ -10,6 +10,7 @@ import {
   setWithExpiry,
 } from "@/utils/functions";
 import { DEFAULT_COUNTRIES } from "@/config/countries";
+import ReactCountryFlag from "react-country-flag";
 
 const Rates = () => {
   const [selectedCountries, setSelectedCountries] = useLocalStorage<
@@ -44,13 +45,10 @@ const Rates = () => {
 
       const cached = getWithExpiry<Record<string, number>>(cacheKey);
       if (cached) {
-        console.log("Using cached rates for:", base);
         setRates(cached);
         setLoading(false);
         return;
       }
-
-      console.log("Fetching API for base:", base);
 
       try {
         const res = await fetch(
@@ -100,6 +98,13 @@ const Rates = () => {
 
     return 0;
   };
+  const removeCountry = (timezone: string) => {
+    setSelectedCountries(
+      selectedCountries.filter((c) => c.timezone !== timezone)
+    );
+  };
+
+  console.log("Country code for flag:", selectedCountries[0]?.code);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -133,48 +138,59 @@ const Rates = () => {
               <table className="w-full min-w-[900px] border-collapse">
                 <thead>
                   <tr className="bg-gray-50 border-b-2 border-gray-200">
-                    <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[120px] shadow-sm">
+                    <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[150px] shadow-sm">
                       Currency
                     </th>
                     {selectedCountries.map((country) => (
                       <th
                         key={country.timezone}
-                        className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-[180px] relative"
+                        className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-[280px] relative"
                       >
                         <div className="flex items-center justify-center gap-2 mb-1">
+                          <span>
+                            <ReactCountryFlag
+                              countryCode={country.code}
+                              svg
+                              style={{ width: "1em", height: "1.5em" }}
+                              title={country.name}
+                            />
+                          </span>
                           <span className="text-lg font-semibold">
                             {country.name}
                           </span>
-                          <span className=" uppercase text-gray-500">
-                            {country.currency.code}
-                          </span>
                         </div>
+                        <button
+                          onClick={() => removeCountry(country.timezone)}
+                          className="absolute top-0 right-0 text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-50"
+                          aria-label="Remove country"
+                        >
+                          <X size={16} />
+                        </button>
                       </th>
                     ))}
                   </tr>
                 </thead>
 
                 <tbody>
-                  {displayCurrencies.map((row) => (
-                    <tr key={row.code} className="border-b hover:bg-blue-50">
+                  {selectedCountries.map((r) => (
+                    <tr key={r.timezone} className="border-b hover:bg-blue-50">
                       <td className="sticky left-0 bg-white px-4 py-3 border-r font-semibold">
                         <div className="flex flex-col">
-                          <span>{row.name}</span>
+                          <span>{r.name}</span>
                           <span className="text-xs text-gray-500 uppercase">
-                            {row.code}
+                            {r.currency.code}
                           </span>
                         </div>
                       </td>
 
                       {selectedCountries.map((colCountry) => {
                         const col = colCountry.currency;
-                        const value = getRate(row.code, col.code);
+                        const value = getRate(r.currency.code, col.code);
                         return (
                           <td
                             key={colCountry.timezone}
                             className="px-4 py-3 text-center"
                           >
-                            {col.symbol}
                             {formatWithCommas(value)}
                           </td>
                         );

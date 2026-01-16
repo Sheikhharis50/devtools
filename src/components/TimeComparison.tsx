@@ -6,6 +6,7 @@ import { DEFAULT_COUNTRIES } from "@/config/countries";
 import { STORAGE } from "@/config/storage";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getTimeForTimezone, formatTime } from "@/utils/time";
+import ReactCountryFlag from "react-country-flag";
 
 const TimeComparison = () => {
   const [selectedCountries, setSelectedCountries] = useLocalStorage<
@@ -114,19 +115,26 @@ const TimeComparison = () => {
         {/* Comparison Grid */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="overflow-x-auto max-w-full">
-            <table className="w-full min-w-[900px] border-collapse">
+            <table className="w-full min-w-225 border-collapse">
               <thead>
-                <tr className="bg-gray-50 border-b-2 border-gray-200">
-                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[120px] shadow-sm">
+                <tr className="bg-gray-50 border-b-2 min-w-max border-gray-200">
+                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-center font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[100px] text-xl shadow-sm">
                     Time
                   </th>
                   {selectedCountries.map((country) => (
                     <th
                       key={country.timezone}
-                      className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-[180px] relative"
+                      className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-70 relative"
                     >
                       <div className="flex items-center justify-center gap-2 mb-1">
-                        <span className="text-xl mb-[5px]">{country.icon}</span>
+                        <span className=" text-gray-500">
+                          <ReactCountryFlag
+                            countryCode={country.code}
+                            svg
+                            style={{ width: "1em", height: "1.5em" }}
+                            title={country.name}
+                          />
+                        </span>
                         <span className="font-bold">{country.name}</span>
                       </div>
                       <div className="text-sm text-gray-500">
@@ -168,7 +176,7 @@ const TimeComparison = () => {
                         hoveredHour === hour ? "bg-blue-100" : "bg-white"
                       }`}
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col items-center">
                         <span className="text-lg">{formatHour(hour)}</span>
                         <span className="text-xs text-gray-400">
                           ({String(hour).padStart(2, "0")}:00)
