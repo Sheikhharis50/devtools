@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { formatTime, getTimeForTimezone } from "@/utils/time";
 import type { CountryType } from "./index.type";
+import ReactCountryFlag from "react-country-flag";
 
 type CountryCardProps = {
   country: CountryType;
@@ -9,7 +10,9 @@ type CountryCardProps = {
 };
 
 export const CountryCard = ({ country, onRemove }: CountryCardProps) => {
-  const [currentTime, setCurrentTime] = useState(getTimeForTimezone(country.offset));
+  const [currentTime, setCurrentTime] = useState(
+    getTimeForTimezone(country.offset)
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,7 +22,11 @@ export const CountryCard = ({ country, onRemove }: CountryCardProps) => {
     return () => clearInterval(interval);
   }, [country.offset]);
 
-  const timeString = formatTime(currentTime.hours, currentTime.minutes, currentTime.seconds);
+  const timeString = formatTime(
+    currentTime.hours,
+    currentTime.minutes,
+    currentTime.seconds
+  );
 
   return (
     <div className="bg-white rounded-xl shadow-md px-4 py-5 hover:shadow-lg transition-all relative">
@@ -37,16 +44,27 @@ export const CountryCard = ({ country, onRemove }: CountryCardProps) => {
         {/* Icon and Name */}
         <div className="flex flex-col items-center gap-2 mb-4">
           <div className="flex items-center gap-2">
-            {country.icon}
+            <span className=" uppercase text-gray-500">
+              <ReactCountryFlag
+                countryCode={country.code}
+                svg
+                style={{ width: "1em", height: "1.5em" }}
+                title={country.name}
+              />
+            </span>
             ({country.offset})
           </div>
-          <h3 className="font-semibold text-gray-800 text-sm sm:text-base">{country.name}</h3>
+          <h3 className="font-semibold text-gray-800 text-sm sm:text-base">
+            {country.name}
+          </h3>
         </div>
 
         {/* Time */}
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900">{timeString}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900">
+              {timeString}
+            </span>
           </div>
         </div>
       </div>

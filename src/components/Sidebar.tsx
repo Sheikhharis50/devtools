@@ -1,17 +1,17 @@
-import { Link } from '@tanstack/react-router'
-import { X, LayoutDashboard, Clock } from 'lucide-react'
-import { useState } from 'react'
+import { Link } from "@tanstack/react-router";
+import { X, LayoutDashboard, Clock, DollarSign } from "lucide-react";
+import { useState } from "react";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   const closeSidebar = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -40,7 +40,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside
         className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white z-50 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
@@ -65,7 +65,7 @@ const Sidebar = () => {
                   onClick={closeSidebar}
                   className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition-colors"
                   activeProps={{
-                    className: 'bg-gray-800',
+                    className: "bg-gray-800",
                   }}
                 >
                   <LayoutDashboard className="w-5 h-5" />
@@ -78,11 +78,22 @@ const Sidebar = () => {
                   onClick={closeSidebar}
                   className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition-colors"
                   activeProps={{
-                    className: 'bg-gray-800',
+                    className: "bg-gray-800",
                   }}
                 >
                   <Clock className="w-5 h-5" />
                   <span>Time Comparison</span>
+                </Link>
+                <Link
+                  to="/currency-comparison"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-800 transition-colors"
+                  activeProps={{
+                    className: "bg-gray-800",
+                  }}
+                >
+                  <DollarSign className="w-5 h-5" />
+                  <span>Currency Comparison</span>{" "}
                 </Link>
               </li>
             </ul>
@@ -90,7 +101,7 @@ const Sidebar = () => {
         </div>
       </aside>
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
