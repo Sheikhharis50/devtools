@@ -100,7 +100,7 @@ const TimeComparison = () => {
       <div className="container mx-auto px-4 py-8 max-w-[1800px]">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 ml-[3.5rem]">
+          <h1 className="text-3xl font-bold text-gray-800 ml-[4%]">
             Time Comparison
           </h1>
           <button

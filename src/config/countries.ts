@@ -26,7 +26,7 @@ export const COUNTRIES: CountryType[] = [
     currency: { code: "lbp", name: "Lebanese Pound" },
   },
   {
-    name: "United States (New York)",
+    name: "United States (NY)",
     code: "US",
     timezone: "America/New_York",
     offset: -5,
@@ -34,7 +34,7 @@ export const COUNTRIES: CountryType[] = [
     currency: { code: "usd", name: "US Dollar" },
   },
   {
-    name: "United States (Los Angeles)",
+    name: "United States (LA)",
     code: "US",
     timezone: "America/Los_Angeles",
     offset: -8,
@@ -42,7 +42,7 @@ export const COUNTRIES: CountryType[] = [
     currency: { code: "usd", name: "US Dollar" },
   },
   {
-    name: "United States (Chicago)",
+    name: "United States (CHI)",
     code: "US",
     timezone: "America/Chicago",
     offset: -6,

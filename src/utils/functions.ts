@@ -23,10 +23,12 @@ export function getWithExpiry<T>(key: string): T | null {
 
   try {
     const item = JSON.parse(itemStr);
-    if (!item.expiresAt || moment().format()) {
+
+    if (!item.expiresAt || moment().isAfter(moment(item.expiresAt))) {
       localStorage.removeItem(key);
       return null;
     }
+
     return item.data as T;
   } catch {
     localStorage.removeItem(key);
