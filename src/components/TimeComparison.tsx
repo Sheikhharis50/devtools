@@ -3,7 +3,6 @@ import { Plus, X, Clock } from "lucide-react";
 import { AddCountryModal } from "./WorldTime/AddCountryModal";
 import type { CountryType } from "./WorldTime/index.type";
 import { DEFAULT_COUNTRIES } from "@/config/countries";
-import { STORAGE } from "@/config/storage";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { getTimeForTimezone, formatTime } from "@/utils/time";
 import ReactCountryFlag from "react-country-flag";
@@ -11,9 +10,11 @@ import ReactCountryFlag from "react-country-flag";
 const TimeComparison = () => {
   const [selectedCountries, setSelectedCountries] = useLocalStorage<
     CountryType[]
-  >(STORAGE.WORLD_TIME.SELECTED_COUNTRIES, DEFAULT_COUNTRIES);
+  >("world_time.selected_countries", DEFAULT_COUNTRIES);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredHour, setHoveredHour] = useState<number | null>(null);
+
   const [currentTimes, setCurrentTimes] = useState<
     Record<string, { hours: number; minutes: number; seconds: number }>
   >({});
@@ -42,7 +43,7 @@ const TimeComparison = () => {
 
   const removeCountry = (timezone: string) => {
     setSelectedCountries(
-      selectedCountries.filter((c) => c.timezone !== timezone)
+      selectedCountries.filter((c) => c.timezone !== timezone),
     );
   };
 
@@ -146,7 +147,7 @@ const TimeComparison = () => {
                           {formatTime(
                             currentTimes[country.timezone].hours,
                             currentTimes[country.timezone].minutes,
-                            currentTimes[country.timezone].seconds
+                            currentTimes[country.timezone].seconds,
                           )}
                         </div>
                       )}
@@ -195,8 +196,8 @@ const TimeComparison = () => {
                             isCurrent
                               ? "bg-blue-200 font-bold text-blue-900"
                               : isHovered
-                              ? "bg-blue-100"
-                              : "bg-white"
+                                ? "bg-blue-100"
+                                : "bg-white"
                           }`}
                         >
                           <div className="flex flex-col items-center">

@@ -1,37 +1,53 @@
-import moment from "moment";
+import {
+  STORAGE,
+  type AppSettings,
+  type WorldRatesSettings,
+} from "@/config/storage";
 
-export const formatWithCommas = (value?: number) => {
-  if (value === undefined || !Number.isFinite(value)) return "—";
+export const updateRates = (data: Partial<WorldRatesSettings>): void => {
+  const current = getSettings();
+  updateSettings({
+    world_rates: {
+      selected_rates: current.world_rates?.selected_rates || {},
+      ...data,
+    },
+  });
+};
 
-  return value.toLocaleString(undefined, {
+export const formatCommas = (num: number): string => {
+  if (!num || num === 0) return "0.00";
+  return num.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 4,
   });
 };
 
-export function setWithExpiry<T>(key: string, data: T) {
-  const item = {
-    data,
-    expiresAt: moment().add(24, "hours").toISOString(),
-  };
-  localStorage.setItem(key, JSON.stringify(item));
-}
-
-export function getWithExpiry<T>(key: string): T | null {
-  const itemStr = localStorage.getItem(key);
-  if (!itemStr) return null;
-
+export const getSettings = (): AppSettings => {
   try {
-    const item = JSON.parse(itemStr);
-
-    if (!item.expiresAt || moment().isAfter(moment(item.expiresAt))) {
-      localStorage.removeItem(key);
-      return null;
-    }
-
-    return item.data as T;
-  } catch {
-    localStorage.removeItem(key);
-    return null;
+    const stored = localStorage.getItem(STORAGE);
+    return stored ? JSON.parse(stored) : {};
+  } catch (error) {
+    console.error("Error reading settings:", error);
+    return {};
   }
-}
+};
+
+export const updateSettings = (updates: Partial<AppSettings>): void => {
+  try {
+    const current = getSettings();
+    const updated: AppSettings = {
+      world_time: {
+        selected_countries: current.world_time?.selected_countries || [],
+        ...updates.world_time,
+      },
+      world_rates: {
+        selected_rates: current.world_rates?.selected_rates || {},
+        ...updates.world_rates,
+      },
+    };
+
+    localStorage.setItem(STORAGE, JSON.stringify(updated));
+  } catch (error) {
+    console.error("Error updating settings:", error);
+  }
+};

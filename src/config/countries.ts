@@ -17,14 +17,7 @@ export const COUNTRIES: CountryType[] = [
     icon: "🇦🇪",
     currency: { code: "aed", name: "UAE Dirham" },
   },
-  {
-    name: "Lebanon",
-    code: "LB",
-    timezone: "Asia/Beirut",
-    offset: 2,
-    icon: "🇱🇧",
-    currency: { code: "lbp", name: "Lebanese Pound" },
-  },
+
   {
     name: "United States (NY)",
     code: "US",
@@ -34,18 +27,18 @@ export const COUNTRIES: CountryType[] = [
     currency: { code: "usd", name: "US Dollar" },
   },
   {
+    name: "Japan",
+    code: "JP",
+    timezone: "Asia/Tokyo",
+    offset: 9,
+    icon: "🇯🇵",
+    currency: { code: "jpy", name: "Japanese Yen" },
+  },
+  {
     name: "United States (LA)",
     code: "US",
     timezone: "America/Los_Angeles",
     offset: -8,
-    icon: "🇺🇸",
-    currency: { code: "usd", name: "US Dollar" },
-  },
-  {
-    name: "United States (CHI)",
-    code: "US",
-    timezone: "America/Chicago",
-    offset: -6,
     icon: "🇺🇸",
     currency: { code: "usd", name: "US Dollar" },
   },
@@ -58,6 +51,14 @@ export const COUNTRIES: CountryType[] = [
     currency: { code: "gbp", name: "British Pound" },
   },
   {
+    name: "Lebanon",
+    code: "LB",
+    timezone: "Asia/Beirut",
+    offset: 2,
+    icon: "🇱🇧",
+    currency: { code: "lbp", name: "Lebanese Pound" },
+  },
+  {
     name: "France",
     code: "FR",
     timezone: "Europe/Paris",
@@ -65,6 +66,15 @@ export const COUNTRIES: CountryType[] = [
     icon: "🇫🇷",
     currency: { code: "eur", name: "Euro" },
   },
+  {
+    name: "United States (CHI)",
+    code: "US",
+    timezone: "America/Chicago",
+    offset: -6,
+    icon: "🇺🇸",
+    currency: { code: "usd", name: "US Dollar" },
+  },
+
   {
     name: "Germany",
     code: "DE",
@@ -89,14 +99,7 @@ export const COUNTRIES: CountryType[] = [
     icon: "🇮🇹",
     currency: { code: "eur", name: "Euro" },
   },
-  {
-    name: "Japan",
-    code: "JP",
-    timezone: "Asia/Tokyo",
-    offset: 9,
-    icon: "🇯🇵",
-    currency: { code: "jpy", name: "Japanese Yen" },
-  },
+
   {
     name: "China",
     code: "CN",
