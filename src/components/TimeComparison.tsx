@@ -101,12 +101,12 @@ const TimeComparison = () => {
       <div className="container mx-auto px-4 py-8 max-w-[1800px]">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 ml-[4%]">
+          <h1 className="text-xl sm:text-3xl  font-bold text-gray-800 ml-12">
             Time Comparison
           </h1>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg hover:shadow-xl"
+            className="px-2 sm:px-6 py-1 sm:py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg hover:shadow-xl"
           >
             <Plus size={20} />
             Add Country
@@ -118,14 +118,14 @@ const TimeComparison = () => {
           <div className="overflow-x-auto max-w-full">
             <table className="w-full min-w-225 border-collapse">
               <thead>
-                <tr className="bg-gray-50 border-b-2 min-w-max border-gray-200">
-                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-center font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[100px] text-xl shadow-sm">
+                <tr className="bg-gray-50 border-b-2 border-gray-200">
+                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-center font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[70px] sm:min-w-[100px]  text-xl shadow-sm">
                     Time
                   </th>
                   {selectedCountries.map((country) => (
                     <th
                       key={country.timezone}
-                      className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-70 relative"
+                      className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200  min-w-[150px] sm:min-w-[280px] md:min-w-[200px] lg:min-w-[280px]  relative"
                     >
                       <div className="flex items-center justify-center gap-2 mb-1">
                         <span className=" text-gray-500">

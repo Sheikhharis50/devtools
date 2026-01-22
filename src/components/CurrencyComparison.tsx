@@ -34,14 +34,14 @@ const Rates = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-8 max-w-[1800px]">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 ml-[4%]">
+          <h1 className="text-xl sm:text-3xl font-bold text-gray-800 ml-12">
             Rates Comparison
           </h1>
           <div className="flex gap-2">
             <button
               onClick={refreshRates}
               disabled={syncing}
-              className="inline-flex items-center hover:cursor-pointer gap-2 px-4 py-1.5 rounded-full text-sm font-semibold backdrop-blur-md shadow-md border transition-all disabled:opacity-60"
+              className="inline-flex items-center gap-2 px-1.5 sm:px-4 sm:py-1.5 rounded-2xl sm:rounded-full text-sm font-semibold backdrop-blur-md shadow-md border transition-all disabled:opacity-60"
               style={{
                 backgroundColor: synced
                   ? "rgba(220, 252, 231, 0.6)"
@@ -63,9 +63,9 @@ const Rates = () => {
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-200 flex items-center gap-2 shadow-lg hover:shadow-xl"
+              className="px-3 sm:px-4 py-1.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg hover:shadow-xl"
             >
-              <Plus size={18} />
+              <Plus size={20} />
               Add Country
             </button>
           </div>
@@ -74,17 +74,17 @@ const Rates = () => {
 
       {selectedCountries && selectedCountries.length > 0 ? (
         <div className="bg-white rounded-xl shadow-lg overflow-x-auto">
-          <div className="overflow-x-auto max-w-full">
+          <div>
             <table className="w-full min-w-[900px] border-collapse">
               <thead>
                 <tr className="bg-gray-50 border-b-2 border-gray-200">
-                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left font-semibold text-gray-700 border-r-2 border-gray-200 min-w-[180px] shadow-sm">
+                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left font-semibold text-gray-700 border-r-2 border-gray-200 sm:min-w-[150px] md:min-w-[170px] lg:min-w-[180]">
                     Currency
                   </th>
                   {selectedCountries.map((country: CountryType) => (
                     <th
                       key={country.timezone}
-                      className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-[280px] relative"
+                      className="px-4 py-3 text-center font-semibold text-gray-700 border-r border-gray-200 min-w-[150] sm:min-w-[280px] md:min-w-[220px] lg:min-w-[280px] relative"
                     >
                       <div className="flex items-center justify-center gap-2 mb-1">
                         <div className="flex flex-col">
@@ -136,7 +136,9 @@ const Rates = () => {
                           key={colCountry.timezone}
                           className="px-4 py-3 text-center"
                         >
-                          {formatCommas(value)}
+                          {typeof value === "number"
+                            ? formatCommas(value)
+                            : "—"}
                         </td>
                       );
                     })}

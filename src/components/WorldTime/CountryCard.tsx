@@ -11,7 +11,7 @@ type CountryCardProps = {
 
 export const CountryCard = ({ country, onRemove }: CountryCardProps) => {
   const [currentTime, setCurrentTime] = useState(
-    getTimeForTimezone(country.offset)
+    getTimeForTimezone(country.offset),
   );
 
   useEffect(() => {
@@ -25,11 +25,11 @@ export const CountryCard = ({ country, onRemove }: CountryCardProps) => {
   const timeString = formatTime(
     currentTime.hours,
     currentTime.minutes,
-    currentTime.seconds
+    currentTime.seconds,
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-md px-4 py-5 hover:shadow-lg transition-all relative">
+    <div className="bg-white w-fit rounded-xl shadow-md px-4 py-5 hover:shadow-lg transition-all relative">
       {/* Close Button */}
       <button
         onClick={onRemove}
@@ -62,7 +62,7 @@ export const CountryCard = ({ country, onRemove }: CountryCardProps) => {
         {/* Time */}
         <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-gray-900">
+            <span className="text-2xl sm:text-3xl font-bold text-gray-900 whitespace-nowrap">
               {timeString}
             </span>
           </div>

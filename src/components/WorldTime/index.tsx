@@ -5,6 +5,7 @@ import { AddCountryModal } from "./AddCountryModal";
 import type { CountryType } from "./index.type";
 import { DEFAULT_COUNTRIES } from "@/config/countries";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import RateWidget from "../RateWidget";
 
 const WorldTime = () => {
   const [selectedCountries, setSelectedCountries] = useLocalStorage<
@@ -48,17 +49,21 @@ const WorldTime = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {selectedCountries.map((country) => (
-              <CountryCard
-                key={country.timezone}
-                country={country}
-                onRemove={() => removeCountry(country.timezone)}
-              />
-            ))}
+          <div className="w-full overflow-hidden">
+            <div className="flex w-full gap-4 overflow-x-auto ">
+              {selectedCountries.map((country) => (
+                <CountryCard
+                  key={country.timezone}
+                  country={country}
+                  onRemove={() => removeCountry(country.timezone)}
+                />
+              ))}
+            </div>
           </div>
         )}
-
+        <div className="mt-10 max-h-[300px] sm:max-h-[350px] lg:max-h-[500px] overflow-y-auto">
+          <RateWidget selectedCountries={selectedCountries} />
+        </div>
         {/* Modal */}
         <AddCountryModal
           isOpen={isModalOpen}
