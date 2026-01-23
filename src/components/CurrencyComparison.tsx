@@ -63,7 +63,7 @@ const Rates = () => {
 
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-3 sm:px-4 py-1.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg hover:shadow-xl"
+              className="px-2 sm:px-6 py-1 sm:py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-lg hover:shadow-xl"
             >
               <Plus size={20} />
               Add Country
