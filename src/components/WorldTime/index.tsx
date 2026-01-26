@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import { Clock, Plus } from 'lucide-react';
-import { CountryCard } from './CountryCard';
-import { AddCountryModal } from './AddCountryModal';
-import type { CountryType } from './index.type';
-import { DEFAULT_COUNTRIES } from '@/config/countries';
-import { STORAGE } from '@/config/storage';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useState } from "react";
+import { Clock, Plus } from "lucide-react";
+import { CountryCard } from "./CountryCard";
+import { AddCountryModal } from "./AddCountryModal";
+import type { CountryType } from "./index.type";
+import { DEFAULT_COUNTRIES } from "@/config/countries";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import RateWidget from "../RateWidget";
 
 const WorldTime = () => {
-  const [selectedCountries, setSelectedCountries] = useLocalStorage<CountryType[]>(
-    STORAGE.WORLD_TIME.SELECTED_COUNTRIES,
-    DEFAULT_COUNTRIES
-  );
+  const [selectedCountries, setSelectedCountries] = useLocalStorage<
+    CountryType[]
+  >("world_time.selected_countries", DEFAULT_COUNTRIES);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addCountry = (country: CountryType) => {
@@ -19,7 +18,9 @@ const WorldTime = () => {
   };
 
   const removeCountry = (timezone: string) => {
-    setSelectedCountries(selectedCountries.filter(c => c.timezone !== timezone));
+    setSelectedCountries(
+      selectedCountries.filter((c) => c.timezone !== timezone),
+    );
   };
 
   return (
@@ -40,29 +41,37 @@ const WorldTime = () => {
         {selectedCountries.length === 0 ? (
           <div className="text-center py-16">
             <Clock size={64} className="mx-auto text-gray-300 mb-4" />
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No countries added yet</h3>
-            <p className="text-gray-500">Click the "Add Country" button to get started</p>
+            <h3 className="text-xl font-semibold text-gray-600 mb-2">
+              No countries added yet
+            </h3>
+            <p className="text-gray-500">
+              Click the "Add Country" button to get started
+            </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {selectedCountries.map((country) => (
-              <CountryCard
-                key={country.timezone}
-                country={country}
-                onRemove={() => removeCountry(country.timezone)}
-              />
-            ))}
+          <div className="w-full overflow-hidden">
+            <div className="flex w-full gap-4 overflow-x-auto ">
+              {selectedCountries.map((country) => (
+                <CountryCard
+                  key={country.timezone}
+                  country={country}
+                  onRemove={() => removeCountry(country.timezone)}
+                />
+              ))}
+            </div>
           </div>
         )}
+        <div className="mt-10 max-h-[300px] sm:max-h-[350px] lg:max-h-[500px] overflow-y-auto">
+          <RateWidget selectedCountries={selectedCountries} />
+        </div>
+        {/* Modal */}
+        <AddCountryModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onAdd={addCountry}
+          selectedCountries={selectedCountries}
+        />
       </div>
-
-      {/* Modal */}
-      <AddCountryModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAdd={addCountry}
-        selectedCountries={selectedCountries}
-      />
     </div>
   );
 };

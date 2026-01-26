@@ -1,19 +1,17 @@
-import type { ReactNode } from 'react'
-import Sidebar from './Sidebar'
+import type { ReactNode } from "react";
+import Sidebar from "./Sidebar";
 
 interface LayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Sidebar />
-      <main className="min-h-screen">
-        {children}
-      </main>
+      <main className="min-h-screen">{children}</main>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
